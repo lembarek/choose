@@ -1,6 +1,6 @@
-source config.vim
-source testFunctions.vim
-source sitesFunctions.vim
+runtime config.vim
+runtime testFunctions.vim
+runtime sitesFunctions.vim
 
 function! CreateFile()
     let name = input('Name: ')
@@ -119,7 +119,7 @@ function! MyVimRc()
     call Hooia()
     abbrev pft PHPUnit_Framework_TestCase
     nnoremap f; :call CreateFile()<cr>
-    nnoremap ne :call Choose(SitesList) 
+    nnoremap ne :call Choose(SitesList)<cr>
     nnoremap  nd :call Choose(commands)<cr>
 endfunction
 
