@@ -4,7 +4,9 @@ function! Food()
 endfunction
 
 function! Hooia()
-    let SiteDir="hooia"
+    let g:SiteDir="hooia/"
+    call Config()
     call Laravel5()
+    nnoremap nf :call Choose(g:PhpUnitList)<cr>
 endfunction
 

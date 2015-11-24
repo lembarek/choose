@@ -3,9 +3,8 @@ runtime testFunctions.vim
 runtime sitesFunctions.vim
 
 function! CreateFile()
-    let name = input('Name: ')
-    let base = "app/"
-    let dir = base.name
+    let name = input('Name: ','','file')
+    let dir = name
 
     execute 'normal :!mkdir -p  '.dir.''
     execute 'normal :!rmdir   '.dir.''
@@ -15,7 +14,7 @@ endfunction
 
 function! Choose(commands)
 
-    let letter = 0
+    let letter = 1
     for choix in a:commands
             echo letter.'  ===>  'choix
             let letter=letter+1
@@ -24,7 +23,7 @@ function! Choose(commands)
     echo '  '
     let choix = input('choose: ')
 
-    execute a:commands[choix]
+    execute a:commands[choix-1]
 
 endfunction
 
@@ -99,19 +98,16 @@ function! Laravel()
 endfunction
 
 function! Laravel4()
-
+    call Laravel()
     abbrev omig tabnew app/database/migrations/
     abbrev oc tabnew app/controllers/
-
     nnoremap ;r :e app/routes.php<cr>
-
 endfunction
 
 function! Laravel5()
-
+    call Laravel()
     abbrev omig tabnew database/migrations/
     abbrev oc tabnew app/Http/Controllers/
-
 endfunction
 
 function! MyVimRc()
