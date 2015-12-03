@@ -7,12 +7,13 @@ function! Config()
     let g:CodeceptionPhar=g:SiteBaseDir.g:SiteDir.g:Vendor.'bin/codecept'
     let g:PhpSpecPhar=g:SiteBaseDir.g:SiteDir.g:Vendor.'bin/phpspec run'
 
-    let SitesList = [
+    let g:SitesList = [
             \'call Food()',
             \'call Hooia()',
+            \'call Ccp()',
     \]
 
-    let TestList = [
+    let g:TestList = [
                 \'normal :nnoremap ff :!clear && '.g:PhpSpecPhar.' -c /opt/lampp/htdocs/findJobs/phpspec.yml <cr>'.'',
                 \'normal :nnoremap ff :!clear && '.g:CodeceptionPhar.' %<cr>'.'', 
                 \'normal :nnoremap ff :!clear && '.g:CodeceptionPhar.' integration<cr>'.'', 
@@ -42,11 +43,11 @@ function! Config()
                 \'normal :nnoremap ff :!clear && '.g:CodeceptionPhar.' integration<cr>'.'', 
     \]
 
-    let PhpSpecList = [
+    let g:PhpSpecList = [
                 \'normal :nnoremap ff :!clear && '.g:PhpSpecPhar.' -c /opt/lampp/htdocs/findJobs/phpspec.yml <cr>'.'',
     \]
 
-    let commands = [
+    let g:commands = [
                 \'tabnew ~/.vimrc', 
                 \'tabnew ~/.bashrc', 
                 \'tabnew ~/.vim/ftplugin/php/laravel.vim', 

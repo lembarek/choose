@@ -112,10 +112,10 @@ endfunction
 
 function! MyVimRc()
     call Laravel()
-    call Hooia()
+    call Ccp()
     abbrev pft PHPUnit_Framework_TestCase
     nnoremap f; :call CreateFile()<cr>
-    nnoremap ne :call Choose(SitesList)<cr>
-    nnoremap  nd :call Choose(commands)<cr>
+    nnoremap ne :call Choose(g:SitesList)<cr>
+    nnoremap  nd :call Choose(g:commands)<cr>
 endfunction
 
