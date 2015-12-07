@@ -32,7 +32,7 @@ function! Config()
 
     let g:PhpUnitList = [
                 \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.'   % <cr>'.'',
-                \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.'  tests/App <cr>'.'',
+                \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.'   <cr>'.'',
                 \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.' --coverage-text tests/App <cr>'.'',
                 \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.' --coverage-text  % <cr>'.'',
                 \'call RunOneFunctionWithPhpUnitWithCodeCoverage()',

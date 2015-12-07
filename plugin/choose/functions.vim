@@ -63,9 +63,9 @@ function! AddDependency()
     let namespace = input('Class Path: ') 
     let segments = split(namespace, '\')
     let typehint = segments[-1]
-    exec 'normal gg/construct^M:H^Mf)i, ' . typehint . ' $' . dependency . '^[/}^>O$this->^[a' . dependency . ' = $' . dependency . ';^[?{^MkOprotected $' . dependency . ';^M^[?{^MOuse ' . namespace . ';^M^['
+    exec 'normal gg/__construct/)i, ' . typehint . ' $' . dependency . '/}O$this->a' . dependency . ' = $' . dependency . ';?{kOprotected $' . dependency . ';?{Ouse ' . namespace . ';'
     " Remove opening comma if there is only one dependency
-    exec 'normal :%s/(, /(/g'
+    exec 'normal :%s/(, /(/g'
 endfunction
 
 
@@ -79,8 +79,8 @@ function! Class()
         exec 'normal i<?php
     endif
     " Open class
-    exec 'normal iclass ' . name . ' {^M}^[O^['
-    exec 'normal i^M    public function __construct()^M{^M ^M}^['
+    exec 'normal iclass ' . name . ' {}O'
+    exec 'normal i    public function __construct(){ }'
 endfunction
 
 function! Laravel()
