@@ -18,3 +18,11 @@ function! Hooia()
     nnoremap nf :call Choose(g:PhpUnitList)<cr>
 endfunction
 
+function! Share()
+    let g:SiteDir="share/"
+    call Config()
+    call Laravel5()
+    nnoremap nf :call Choose(g:PhpUnitList)<cr>
+endfunction
+
+

@@ -11,6 +11,7 @@ function! Config()
             \'call Food()',
             \'call Hooia()',
             \'call Ccp()',
+            \'call Share()',
     \]
 
     let g:TestList = [
@@ -33,9 +34,9 @@ function! Config()
     let g:PhpUnitList = [
                 \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.'   % <cr>'.'',
                 \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.'   <cr>'.'',
-                \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.' --coverage-text tests/App <cr>'.'',
-                \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.' --coverage-text  % <cr>'.'',
-                \'call RunOneFunctionWithPhpUnitWithCodeCoverage()',
+                \'call RunOneFunctionWithPhpUnit()',
+                \'normal :nnoremap ff :call TestThisFunction()<cr>',
+                \'call RunOneFunctionWithPhpUnit2()',
     \]
 
     let codeCeptionList = [

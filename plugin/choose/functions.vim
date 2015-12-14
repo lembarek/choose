@@ -40,21 +40,18 @@ function! FacadeLookup()
 endfunction
 
 function! Class()
-    let name = input('Class name?')
-    let namespace = input('Any Namespace?')
+    let name = input('Class name? ')
+    let namespace = input('Any Namespace? ')
 
     if strlen(namespace)
         exec 'normal i<?php namespace '.namespace.';'
-
     else
         exec 'normal i<?php'
     endif
 
+    exec 'normal iclass '.name.'{}'
 
-    exec 'normal iclass '.name.'{}0'
-
-
-    exec 'normal i   public function  __construct(){ }'
+    exec 'normal i   public function  __construct(){ }0dw'
 endfunction
 
 " Add a new dependency to a PHP class
@@ -65,22 +62,7 @@ function! AddDependency()
     let typehint = segments[-1]
     exec 'normal gg/__construct/)i, ' . typehint . ' $' . dependency . '/}O$this->a' . dependency . ' = $' . dependency . ';?{kOprotected $' . dependency . ';?{Ouse ' . namespace . ';'
     " Remove opening comma if there is only one dependency
-    exec 'normal :%s/(, /(/g'
-endfunction
-
-
-" Prepare a new PHP class
-function! Class()
-    let name = input('Class name? ')
-    let namespace = input('Any Namespace? ')
-    if strlen(namespace)
-        exec 'normal i<?php namespace ' . namespace . ';
-    else
-        exec 'normal i<?php
-    endif
-    " Open class
-    exec 'normal iclass ' . name . ' {}O'
-    exec 'normal i    public function __construct(){ }'
+    exec 'normal :%s/\v(\(,\s)?/\(/'
 endfunction
 
 function! Laravel()
@@ -112,9 +94,10 @@ endfunction
 
 function! MyVimRc()
     call Laravel()
-    call Ccp()
+    call Share()
     abbrev pft PHPUnit_Framework_TestCase
     nnoremap f; :call CreateFile()<cr>
+    nnoremap ;c :call Class()<cr>
     nnoremap ne :call Choose(g:SitesList)<cr>
     nnoremap  nd :call Choose(g:commands)<cr>
 endfunction
