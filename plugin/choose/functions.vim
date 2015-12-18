@@ -58,11 +58,22 @@ endfunction
 function! AddDependency()
     let dependency = input('Var Name: ')
     let namespace = input('Class Path: ') 
-    let segments = split(namespace, '\')
-    let typehint = segments[-1]
-    exec 'normal gg/__construct/)i, ' . typehint . ' $' . dependency . '/}O$this->a' . dependency . ' = $' . dependency . ';?{kOprotected $' . dependency . ';?{Ouse ' . namespace . ';'
+    if strlen(namespace)
+        let segments = split(namespace, '\')
+        let typehint = segments[-1]
+    endif
+    if strlen(namespace)
+        exec 'normal gg/__construct/)i, ' . typehint . ' $' . dependency . ''
+    else
+        exec 'normal gg/__construct/)i, $' . dependency . ''
+    endif
+    exec 'normal /}O$this->a' . dependency . ' = $' . dependency . ';'
+    exec 'normal ?{kOprotected $' . dependency . ';'
+    if strlen(namespace)
+        exec 'normal ?class?\v(use|php)ouse ' . namespace . ';'
+    endif
     " Remove opening comma if there is only one dependency
-    exec 'normal :%s/\v(\(,\s)?/\(/'
+    exec 'normal :%s/\v(\(, |\()/\(/'
 endfunction
 
 function! Laravel()

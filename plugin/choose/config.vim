@@ -51,6 +51,7 @@ function! Config()
     let g:commands = [
                 \'tabnew ~/.vimrc', 
                 \'tabnew ~/.bashrc', 
+                \'tabnew ~/.vim/bundle/snipmate.vim/snippets/php.snippets', 
                 \'tabnew ~/.vim/ftplugin/php/laravel.vim', 
                 \'tabnew ~/.vim/plugin/commands.vim', 
                 \'tabnew /media/d/next_internet/with_your_computer/with_your_computer.txt',
