@@ -25,4 +25,14 @@ function! Share()
     nnoremap nf :call Choose(g:PhpUnitList)<cr>
 endfunction
 
+function! Package()
+    let g:SiteDir="packages/"
+    call Config()
+    call Laravel5()
+    nnoremap nf :call Choose(g:PhpUnitList)<cr>
+endfunction
+
+
+
+
 

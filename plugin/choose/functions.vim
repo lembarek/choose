@@ -105,11 +105,19 @@ endfunction
 
 function! MyVimRc()
     call Laravel()
-    call Share()
+    call Package()
     abbrev pft PHPUnit_Framework_TestCase
     nnoremap f; :call CreateFile()<cr>
     nnoremap ;c :call Class()<cr>
     nnoremap ne :call Choose(g:SitesList)<cr>
     nnoremap  nd :call Choose(g:commands)<cr>
+endfunction
+
+function! SetArabic()
+    set keymap=arabic
+    set encoding=utf-8
+    set arabicshape
+    set arabic
+    set rl
 endfunction
 

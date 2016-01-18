@@ -12,6 +12,7 @@ function! Config()
             \'call Hooia()',
             \'call Ccp()',
             \'call Share()',
+            \'call Package()',
     \]
 
     let g:TestList = [
