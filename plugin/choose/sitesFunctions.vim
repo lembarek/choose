@@ -32,7 +32,22 @@ function! Package()
     nnoremap nf :call Choose(g:PhpUnitList)<cr>
 endfunction
 
+function! Core()
+    let g:SiteDir="packages/lembarek/core/"
+    call Config()
+    nnoremap nf :call Choose(g:PhpUnitList)<cr>
+endfunction
+
+function! Auth()
+    let g:SiteDir="packages/lembarek/auth/"
+    call Config()
+    nnoremap nf :call Choose(g:PhpUnitList)<cr>
+endfunction
 
 
-
+function! Role()
+    let g:SiteDir="packages/lembarek/role/"
+    call Config()
+    nnoremap nf :call Choose(g:PhpUnitList)<cr>
+endfunction
 

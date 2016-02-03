@@ -13,6 +13,9 @@ function! Config()
             \'call Ccp()',
             \'call Share()',
             \'call Package()',
+            \'call Core()',
+            \'call Auth()',
+            \'call Role()',
     \]
 
     let g:TestList = [
