@@ -1,9 +1,12 @@
 let g:SiteBaseDir='/opt/lampp/htdocs/'
 let g:SiteDir='food-we-love/'
 let g:Vendor='vendor/'
+let g:testMap=':nnoremap ff :!clear && '
 
 function! Config()
     let g:PhpUnitPhar=g:SiteBaseDir.g:SiteDir.g:Vendor.'bin/phpunit'
+    let g:PhpUnitConfig=g:SiteBaseDir.g:SiteDir.'phpunit.xml'
+    let g:PhpUnit=g:testMap.g:PhpUnitPhar.' -c '.g:PhpUnitConfig
     let g:CodeceptionPhar=g:SiteBaseDir.g:SiteDir.g:Vendor.'bin/codecept'
     let g:PhpSpecPhar=g:SiteBaseDir.g:SiteDir.g:Vendor.'bin/phpspec run'
 
@@ -36,8 +39,8 @@ function! Config()
     \]
 
     let g:PhpUnitList = [
-                \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.'   % <cr>'.'',
-                \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.'   <cr>'.'',
+                \'normal '.g:PhpUnit.' % <cr>'.'',
+                \'normal '.g:PhpUnit.'   <cr>'.'',
                 \'call RunOneFunctionWithPhpUnit()',
                 \'normal :nnoremap ff :call TestThisFunction()<cr>',
                 \'call RunOneFunctionWithPhpUnit2()',
