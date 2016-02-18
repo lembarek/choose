@@ -14,16 +14,22 @@ endfunction
 
 function! Choose(commands)
 
-    let letter = 1
-    for choix in a:commands
-            echo letter.'  ===>  'choix
-            let letter=letter+1
+    let keys = sort(keys(a:commands))
+
+    for key in keys
+            echo key 
+    endfor
+
+    let choix = input('choose: ')
+
+    for key in keys
+        if key =~ '^'.choix
+            execute a:commands[key]
+        endif
     endfor
 
     echo '  '
-    let choix = input('choose: ')
 
-    execute a:commands[choix-1]
 
 endfunction
 
@@ -105,11 +111,10 @@ endfunction
 
 function! MyVimRc()
     call Laravel()
-    call Package()
     abbrev pft PHPUnit_Framework_TestCase
     nnoremap f; :call CreateFile()<cr>
     nnoremap ;c :call Class()<cr>
-    nnoremap ne :call Choose(g:SitesList)<cr>
+    nnoremap nf :call Choose(g:CodeceptionList)<cr>
     nnoremap  nd :call Choose(g:commands)<cr>
 endfunction
 

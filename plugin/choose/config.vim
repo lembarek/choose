@@ -1,37 +1,41 @@
-let g:SiteBaseDir='/opt/lampp/htdocs/'
-let g:SiteDir='food-we-love/'
-let g:Vendor='vendor/'
+function! GetComposerDir()
+        let pwd = getcwd()
+        while pwd != '/'
+             if filereadable(pwd.'/composer.json')
+               return pwd 
+            endif
+            let pwd = fnamemodify(pwd, ':h')
+        endwhile
+endfunction
+
+let g:SiteDir= GetComposerDir()
+let g:Vendor='/vendor'
 let g:testMap=':nnoremap ff :!clear && '
 
 function! Config()
-    let g:PhpUnitPhar=g:SiteBaseDir.g:SiteDir.g:Vendor.'bin/phpunit'
-    let g:PhpUnitConfig=g:SiteBaseDir.g:SiteDir.'phpunit.xml'
-    let g:PhpUnit=g:testMap.g:PhpUnitPhar.' -c '.g:PhpUnitConfig
-    let g:CodeceptionPhar=g:SiteBaseDir.g:SiteDir.g:Vendor.'bin/codecept'
-    let g:PhpSpecPhar=g:SiteBaseDir.g:SiteDir.g:Vendor.'bin/phpspec run'
 
-    let g:SitesList = [
-            \'call Food()',
-            \'call Hooia()',
-            \'call Ccp()',
-            \'call Share()',
-            \'call Package()',
-            \'call Core()',
-            \'call Auth()',
-            \'call Role()',
-    \]
+    let g:PhpUnitPhar=g:SiteDir.g:Vendor.'/bin/phpunit'
+    let g:PhpUnitConfig=g:SiteDir.'phpunit.xml'
+    let g:PhpUnit=g:testMap.g:PhpUnitPhar.' -c '.g:PhpUnitConfig
+
+    let g:CodeceptionPhar=g:SiteDir.g:Vendor.'/bin/codecept'
+    let g:CodeceptionConfig=g:SiteDir.'/codeception.yml'
+    let g:CodeceptionRun=g:testMap.g:CodeceptionPhar.' run -c '.g:CodeceptionConfig
+
+
+    let g:PhpSpecPhar=g:SiteDir.g:Vendor.'/bin/phpspec run'
 
     let g:TestList = [
-                \'normal :nnoremap ff :!clear && '.g:PhpSpecPhar.' -c /opt/lampp/htdocs/findJobs/phpspec.yml <cr>'.'',
-                \'normal :nnoremap ff :!clear && '.g:CodeceptionPhar.' %<cr>'.'', 
-                \'normal :nnoremap ff :!clear && '.g:CodeceptionPhar.' integration<cr>'.'', 
-                \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.'  tests/App <cr>'.'',
-                \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.'   % <cr>'.'',
+                \'normal '.g:testMap.g:PhpSpecPhar.' -c /opt/lampp/htdocs/findJobs/phpspec.yml <cr>'.'',
+                \'normal '.g:testMap.g:CodeceptionPhar.' %<cr>'.'', 
+                \'normal '.g:testMap.g:CodeceptionPhar.' integration<cr>'.'', 
+                \'normal '.g:testMap.g:PhpUnitPhar.'  tests/App <cr>'.'',
+                \'normal '.g:testMap.g:PhpUnitPhar.'   % <cr>'.'',
                 \'call RunOneFunctionWithPhpUnit()',
                 \'normal :nnoremap ff :call TestThisFunction()<cr>',
                 \'call RunOneFunctionWithPhpUnit2()',
-                \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.' --coverage-text tests/App <cr>'.'',
-                \'normal :nnoremap ff :!clear && '.g:PhpUnitPhar.' --coverage-text  % <cr>'.'',
+                \'normal '.g:testMap.g:PhpUnitPhar.' --coverage-text tests/App <cr>'.'',
+                \'normal '.g:testMap.g:PhpUnitPhar.' --coverage-text  % <cr>'.'',
                 \'call RunOneFunctionWithPhpUnitWithCodeCoverage()',
                 \'normal :nnoremap ff :call TestThisFunctionWithCodeCoverage()<cr>',
                 \'call RunOneFunctionWithPhpUnit2WithCodeCoverage()',
@@ -46,13 +50,17 @@ function! Config()
                 \'call RunOneFunctionWithPhpUnit2()',
     \]
 
-    let codeCeptionList = [
-                \'normal :nnoremap ff :!clear && '.g:CodeceptionPhar.' %<cr>'.'', 
-                \'normal :nnoremap ff :!clear && '.g:CodeceptionPhar.' integration<cr>'.'', 
-    \]
+    let g:CodeceptionList = {
+               \'% => %':  'normal '.g:CodeceptionRun.'  %<cr>'.'',
+               \'l => all': 'normal '.g:CodeceptionRun.' <cr>'.'', 
+               \'u => unit': 'normal '.g:CodeceptionRun.' unit<cr>'.'', 
+               \'a => acceptance':  'normal '.g:CodeceptionRun.' acceptance<cr>'.'', 
+               \'f => functional': 'normal '.g:CodeceptionRun.' functional<cr>'.'', 
+               \'i => integration': 'normal '.g:CodeceptionRun.' integration<cr>'.'' 
+    \}
 
     let g:PhpSpecList = [
-                \'normal :nnoremap ff :!clear && '.g:PhpSpecPhar.' -c /opt/lampp/htdocs/findJobs/phpspec.yml <cr>'.'',
+                \'normal '.g:testMap.g:PhpSpecPhar.' -c /opt/lampp/htdocs/findJobs/phpspec.yml <cr>'.'',
     \]
 
     let g:commands = [
@@ -73,5 +81,4 @@ function! Config()
 endfunction
 
 call Config()
-
 
