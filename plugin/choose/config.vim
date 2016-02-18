@@ -11,6 +11,7 @@ endfunction
 let g:SiteDir= GetComposerDir()
 let g:Vendor='/vendor'
 let g:testMap=':nnoremap ff :!clear && '
+let g:FileRelativePathToComposer = substitute(expand('%:p'), '^'.g:SiteDir.'/', '','')
 
 function! Config()
 
@@ -24,6 +25,7 @@ function! Config()
 
 
     let g:PhpSpecPhar=g:SiteDir.g:Vendor.'/bin/phpspec run'
+
 
     let g:TestList = [
                 \'normal '.g:testMap.g:PhpSpecPhar.' -c /opt/lampp/htdocs/findJobs/phpspec.yml <cr>'.'',
@@ -51,7 +53,7 @@ function! Config()
     \]
 
     let g:CodeceptionList = {
-               \'% => %':  'normal '.g:CodeceptionRun.'  %<cr>'.'',
+               \'% => %':  'normal '.g:CodeceptionRun.' '.g:FileRelativePathToComposer.'<cr>'.'',
                \'l => all': 'normal '.g:CodeceptionRun.' <cr>'.'', 
                \'u => unit': 'normal '.g:CodeceptionRun.' unit<cr>'.'', 
                \'a => acceptance':  'normal '.g:CodeceptionRun.' acceptance<cr>'.'', 
