@@ -41,13 +41,11 @@ let g:TestList = [
             \'normal :vendor\bin\behat',
 \]
 
-let g:PhpUnitList = [
-            \'normal '.g:PhpUnit.' % <cr>'.'',
-            \'normal '.g:PhpUnit.'   <cr>'.'',
-            \'call RunOneFunctionWithPhpUnit()',
-            \'normal :nnoremap ff :call TestThisFunction()<cr>',
-            \'call RunOneFunctionWithPhpUnit2()',
-\]
+let g:PhpUnitList = {
+            \'% => %': 'normal '.g:PhpUnit.' % <cr>'.'',
+            \'l => all': 'normal '.g:PhpUnit.'   <cr>'.'',
+            \'t => this function': 'call RunOneFunctionWithPhpUnit()'
+\}
 
 let g:CodeceptionList = {
             \'% => %':  'normal '.g:CodeceptionRun.g:FileRelativePathToComposer.'<cr>'.'',
@@ -59,23 +57,18 @@ let g:CodeceptionList = {
             \'t => this function': 'call RunOneFunctionWithCodeception()'
 \}
 
-let g:PhpSpecList = [
-            \'normal '.g:testMap.g:PhpSpecPhar.' -c /opt/lampp/htdocs/findJobs/phpspec.yml <cr>'.'',
-\]
-
-let g:commands = [
-            \'tabnew ~/.vimrc', 
-            \'tabnew ~/.bashrc', 
-            \'tabnew ~/.vim/bundle/snipmate.vim/snippets/php.snippets', 
-            \'tabnew ~/.vim/ftplugin/php/laravel.vim', 
-            \'tabnew ~/.vim/plugin/commands.vim', 
-            \'tabnew /media/d/next_internet/with_your_computer/with_your_computer.txt',
-            \'tabnew app/Http/routes.php', 
-            \'tabnew config/app.php', 
-            \'tabnew composer.json', 
-            \'!phpunit --coverage-html coverage  %',
-            \'!/media/d/backtrack/programs/firefox/firefox --new-window /opt/lampp/htdocs/findJobs/coverage/index.html',
-            \'nnoremap ff :!vendor/bin/behat<cr>',
-\]
+let g:commands = {
+            \'vimrc ': 'tabnew ~/.vimrc', 
+            \'bash': 'tabnew ~/.bashrc', 
+            \'php': 'tabnew ~/.vim/bundle/snipmate.vim/snippets/php.snippets', 
+            \'laravel.vim': 'tabnew ~/.vim/ftplugin/php/laravel.vim', 
+            \'commands.vim': 'tabnew ~/.vim/plugin/commands.vim', 
+            \'todos':  'tabnew /media/d/etude/encours/txt/todos.txt',
+            \'down':  'tabnew /media/d/develop/sh/down/down.sh',
+            \'alias':  'tabnew ~/.my_aliases',
+            \'cont':  'tabnew ~/.my_contrc',
+            \'my_bash':  'tabnew ~/.my_bashrc',
+            \'zsh':  'tabnew ~/.zshrc',
+\}
 
 
