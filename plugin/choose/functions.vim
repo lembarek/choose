@@ -30,7 +30,6 @@ function! Choose(commands)
 
     echo '  '
 
-
 endfunction
 
 function! FacadeLookup()
@@ -109,12 +108,17 @@ function! Laravel5()
     abbrev oc tabnew app/Http/Controllers/
 endfunction
 
+function! RefreshThenChoose()
+    source ~/.vim/bundle/choose/plugin/choose/config.vim
+    call Choose(g:CodeceptionList)
+endfunction
+
 function! MyVimRc()
     call Laravel()
     abbrev pft PHPUnit_Framework_TestCase
     nnoremap f; :call CreateFile()<cr>
     nnoremap ;c :call Class()<cr>
-    nnoremap nf :call Choose(g:CodeceptionList)<cr>
+    nnoremap nf :call RefreshThenChoose()<cr>
     nnoremap  nd :call Choose(g:commands)<cr>
 endfunction
 
