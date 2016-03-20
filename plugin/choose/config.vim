@@ -63,7 +63,7 @@ let g:commands = {
             \'php': 'tabnew ~/.vim/bundle/snipmate.vim/snippets/php.snippets', 
             \'laravel.vim': 'tabnew ~/.vim/ftplugin/php/laravel.vim', 
             \'commands.vim': 'tabnew ~/.vim/plugin/commands.vim', 
-            \'todos':  'tabnew /media/d/etude/encours/txt/todos.txt',
+            \'todos_other':  'tabnew /media/d/etude/encours/txt/todos_other',
             \'todos_testing':  'tabnew /media/d/etude/encours/txt/todos_testing',
             \'todos_bash':  'tabnew /media/d/etude/encours/txt/todos_bash',
             \'todos_develop':  'tabnew /media/d/etude/encours/txt/todos_develop',
