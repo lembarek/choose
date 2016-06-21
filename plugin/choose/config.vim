@@ -16,13 +16,16 @@ let g:FileRelativePathToCodeceptionConfig= substitute(expand('%:p'), '^'.g:SiteD
 let g:CodeceptionConfig=g:SiteDir.'/codeception.yml'
 
 let g:PhpUnitPhar=g:SiteDir.g:Vendor.'/bin/phpunit'
-let g:PhpUnitConfig=g:SiteDir.'phpunit.xml'
+let g:PhpUnitConfig=g:SiteDir.'/phpunit.xml'
 let g:PhpUnit=g:testMap.g:PhpUnitPhar.' -c '.g:PhpUnitConfig
 
 let g:CodeceptionPhar=g:SiteDir.g:Vendor.'/bin/codecept'
 let g:CodeceptionRun=g:testMap.g:CodeceptionPhar.' run -c '.g:CodeceptionConfig.' '
 
-let g:PhpSpecPhar=g:SiteDir.g:Vendor.'/bin/phpspec run'
+let g:PhpSpecConfig=g:SiteDir.'/phpspec.yml'
+let g:PhpSpecPhar=g:SiteDir.g:Vendor.'/phpspec/phpspec/bin/phpspec '
+let g:PhpSpecRun=g:testMap.g:PhpSpecPhar.'  run '
+let g:PhpSpec=g:testMap.g:PhpSpecPhar.' run '
 
 let g:TestList = [
             \'normal '.g:testMap.g:PhpSpecPhar.' -c /opt/lampp/htdocs/findJobs/phpspec.yml <cr>'.'',
@@ -43,19 +46,28 @@ let g:TestList = [
 
 let g:PhpUnitList = {
             \'% => %': 'normal '.g:PhpUnit.' % <cr>'.'',
-            \'l => all': 'normal '.g:PhpUnit.'   <cr>'.'',
-            \'t => this function': 'call RunOneFunctionWithPhpUnit()'
+            \'f% => %': 'normal '.g:PhpUnit.' % <cr>'.'',
+            \'a => all': 'normal '.g:PhpUnit.'   <cr>'.'',
+            \'ft => this function': 'call RunOneFunctionWithPhpUnit()',
+            \'t => this function': 'call RunOneFunctionWithPhpUnitFull()'
 \}
 
 let g:CodeceptionList = {
             \'% => %':  'normal '.g:CodeceptionRun.g:FileRelativePathToComposer.'<cr>'.'',
-            \'l => all': 'normal '.g:CodeceptionRun.' <cr>', 
+            \'a => all': 'normal '.g:CodeceptionRun.' <cr>', 
             \'u => unit': 'normal '.g:CodeceptionRun.' unit<cr>', 
-            \'a => acceptance':  'normal '.g:CodeceptionRun.' acceptance<cr>', 
+            \'c => acceptance':  'normal '.g:CodeceptionRun.' acceptance<cr>', 
             \'f => functional': 'normal '.g:CodeceptionRun.' functional<cr>', 
             \'i => integration': 'normal '.g:CodeceptionRun.' integration<cr>',
             \'t => this function': 'call RunOneFunctionWithCodeception()'
 \}
+
+let g:PhpSpecList = {
+            \'% => %': 'normal '.g:PhpSpecRun.' % <cr>'.'',
+            \'a => all': 'normal '.g:PhpSpecRun.'   <cr>'.'',
+            \'t => this function': 'call RunOneFunctionWithPhpSpec()'
+\}
+
 
 let g:commands = {
             \'vimrc ': 'tabnew ~/.vimrc', 

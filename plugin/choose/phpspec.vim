@@ -1,23 +1,16 @@
-function! RunOneFunctionWithPhpUnit()
+function! RunOneFunctionWithPhpSpec()
    let l:winview = winsaveview()
-   execute 'normal ?functionwvwh"fy'
-   let command =  g:PhpUnit.'  % --filter "/::'.@f.'.*(.*)/" \| grep "Caused by" -A 1<cr>' 
+   execute 'normal ?function'
+   let command =  g:PhpSpecRun." ".bufname('%').":".line(".").'<cr>'
    execute 'normal '.command.''
    call winrestview(l:winview)
 endfunction
 
-function! RunOneFunctionWithPhpUnitFull()
-   let l:winview = winsaveview()
-   execute 'normal ?functionwvwh"fy'
-   let command =  g:PhpUnit.' %  --filter "/::'.@f.'.*(.*)/"<cr>' 
-   execute 'normal '.command.''
-   call winrestview(l:winview)
-endfunction
 
-function! RunOneFunctionWithPhpUnit2()
+function! RunOneFunctionWithPhpSpec2()
    let l:winview = winsaveview()
    let l:functionName = input('function name: ')
-   let command =  g:PhpUnit.'   --filter "/::'.l:functionName.'.*(.*)/" <cr>' 
+   let command =  g:PhpSpec.'   --filter "/::'.l:functionName.'.*(.*)/" <cr>' 
    execute 'normal '.command.''
    call winrestview(l:winview)
 endfunction
@@ -26,23 +19,23 @@ endfunction
 function! TestThisFunction()
    let l:winview = winsaveview()
    execute 'normal ?functionwvwh"fy'
-   let l:command =  ':!clear && '.g:PhpUnitPhar.'  --filter "/::'.@f.'.*(.*)/"' 
+   let l:command =  ':!clear && '.g:PhpSpecPhar.'  --filter "/::'.@f.'.*(.*)/"' 
    execute l:command
    call winrestview(l:winview)
 endfunction
 
-function! RunOneFunctionWithPhpUnitWithCodeCoverage()
+function! RunOneFunctionWithPhpSpecWithCodeCoverage()
    let l:winview = winsaveview()
    execute 'normal ?functionwvwh"fy'
-   let command =  g:PhpUnit.'  --coverage-text --filter "/::'.@f.'.*(.*)/" %<cr>' 
+   let command =  g:PhpSpec.'  --coverage-text --filter "/::'.@f.'.*(.*)/" %<cr>' 
    execute 'normal '.command.''
    call winrestview(l:winview)
 endfunction
 
-function! RunOneFunctionWithPhpUnit2WithCodeCoverage()
+function! RunOneFunctionWithPhpSpec2WithCodeCoverage()
    let l:winview = winsaveview()
    let l:functionName = input('function name: ')
-   let command =  g:PhpUnit.' --coverage-text --filter "/::'.l:functionName.'.*(.*)/" <cr>' 
+   let command =  g:PhpSpec.' --coverage-text --filter "/::'.l:functionName.'.*(.*)/" <cr>' 
    execute 'normal '.command.''
    call winrestview(l:winview)
 endfunction
@@ -52,7 +45,7 @@ endfunction
 function! TestThisFunctionWithCodeCoverage()
    let l:winview = winsaveview()
    execute 'normal ?functionwvwh"fy'
-   let l:command =  ':!clear && '.g:PhpUnitPhar.'  --coverage-text --filter "/::'.@f.'.*(.*)/"' 
+   let l:command =  ':!clear && '.g:PhpSpecPhar.'  --coverage-text --filter "/::'.@f.'.*(.*)/"' 
    execute l:command
    call winrestview(l:winview)
 endfunction

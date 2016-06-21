@@ -22,11 +22,13 @@ function! Choose(commands)
 
     let choix = input('choose: ')
 
-    for key in keys
-        if key =~ '^'.choix
-            execute a:commands[key]
-        endif
-    endfor
+    if choix != ''
+        for key in keys
+            if key =~ '^'.choix
+                execute a:commands[key]
+            endif
+        endfor
+    endif
 
     echo '  '
 
@@ -75,11 +77,12 @@ function! AddDependency()
     exec 'normal /}O$this->a' . dependency . ' = $' . dependency . ';'
     exec 'normal ?{kOprotected $' . dependency . ';'
     if strlen(namespace)
-        exec 'normal ?class?\v(use|php)ouse ' . namespace . ';'
+        exec 'normal ?class?\v(use|namespace|php)ouse ' . namespace . ';'
     endif
     " Remove opening comma if there is only one dependency
     exec 'normal :%s/\v(\(, |\()/\(/'
 endfunction
+
 
 function! Laravel()
 
@@ -108,9 +111,44 @@ function! Laravel5()
     abbrev oc tabnew app/Http/Controllers/
 endfunction
 
+function! GetYmlValue(file, key)
+    let values = readfile(a:file)
+    for value in values
+        if value =~ '^'.a:key.':'
+            return substitute(value, a:key.': ','','')
+        endif
+    endfor
+endfunction
+
+function! GetTestYmlFile()
+        let pwd = getcwd()
+        while pwd != '/'
+             if filereadable(pwd.'/test.yml')
+               return pwd.'/test.yml'
+            endif
+            let pwd = fnamemodify(pwd, ':h')
+        endwhile
+endfunction
+
+function! GetTester()
+   let file = GetTestYmlFile()
+   return GetYmlValue(file, 'test')
+endfunction
+
+function! GetTestingList()
+    let tester = GetTester()
+    if tester == 'codeception'
+        return g:CodeceptionList
+    elseif tester == 'phpunit'
+        return g:PhpUnitList
+    elseif tester == 'phpspec'
+        return g:PhpSpecList
+    endif
+endfunction
+
 function! RefreshThenChoose()
     source ~/.vim/bundle/choose/plugin/choose/config.vim
-    call Choose(g:CodeceptionList)
+    call Choose(GetTestingList())
 endfunction
 
 function! MyVimRc()
