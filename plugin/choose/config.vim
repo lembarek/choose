@@ -1,16 +1,7 @@
-function! GetComposerDir()
-        let pwd = getcwd()
-        while pwd != '/'
-             if filereadable(pwd.'/composer.json')
-               return pwd 
-            endif
-            let pwd = fnamemodify(pwd, ':h')
-        endwhile
-endfunction
-
-let g:SiteDir= GetComposerDir()
+let g:SiteDir= GetValue('site_dir')
 let g:Vendor='/vendor'
 let g:testMap=':nnoremap ff :!clear && '
+
 let g:FileRelativePathToComposer = substitute(expand('%:p'), '^'.g:SiteDir.'/', '','')
 let g:FileRelativePathToCodeceptionConfig= substitute(expand('%:p'), '^'.g:SiteDir.'/tests/', '','')
 let g:CodeceptionConfig=g:SiteDir.'/codeception.yml'
@@ -100,5 +91,3 @@ let g:commands = {
             \'learn': 'tabnew /media/d/etude/encours/txt/toLearn.txt',
             \'files': 'tabnew ~/.vim/bundle/choose/plugin/choose/config.vim',
 \}
-
-
