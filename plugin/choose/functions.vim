@@ -1,7 +1,3 @@
-runtime config.vim
-runtime testFunctions.vim
-runtime sitesFunctions.vim
-
 function! CreateFile()
     let name = input('Name: ','','file')
     let dir = name
@@ -109,25 +105,6 @@ function! Laravel5()
     call Laravel()
     abbrev omig tabnew database/migrations/
     abbrev oc tabnew app/Http/Controllers/
-endfunction
-
-function! GetYmlValue(file, key)
-    let values = readfile(a:file)
-    for value in values
-        if value =~ '^'.a:key.':'
-            return substitute(value, a:key.': ','','')
-        endif
-    endfor
-endfunction
-
-function! GetTestYmlFile()
-        let pwd = getcwd()
-        while pwd != '/'
-             if filereadable(pwd.'/test.yml')
-               return pwd.'/test.yml'
-            endif
-            let pwd = fnamemodify(pwd, ':h')
-        endwhile
 endfunction
 
 function! GetTester()
