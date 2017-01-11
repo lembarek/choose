@@ -82,11 +82,11 @@ endfunction
 
 function! Laravel()
 
-    abbrev gm !php artisan generate:model
-    abbrev gc !php artisan generate:controller
-    abbrev mig !php artisan migrate
-    abbrev gmig !php artisan generate:migration 
-    nnoremap ng :!php artisan 
+    cabbrev gm !make artisan ART=generate:model
+    cabbrev gc !make artisan ART=generate:controller
+    cabbrev mig !make artisan ART=migrate
+    cabbrev gmig !make artisan ART=generate:migration 
+    nnoremap ng :!make artisan ART=
 
     nnoremap <leader>lf :call FacadeLookup()<cr>
     nnoremap <leader>c :call Class()<cr>
@@ -145,3 +145,99 @@ function! SetArabic()
     set rl
 endfunction
 
+" Rename.vim  -  Rename a buffer within Vim and on the disk
+"
+" Copyright June 2007-2011 by Christian J. Robinson <heptite@gmail.com>
+"
+" Distributed under the terms of the Vim license.  See ":help license".
+"
+" Usage:
+"
+" :Rename[!] {newname}
+
+command! -nargs=* -complete=file -bang Rename call Rename(<q-args>, '<bang>')
+
+function! Rename(name, bang)
+	let l:name    = a:name
+	let l:oldfile = expand('%:p')
+
+	if bufexists(fnamemodify(l:name, ':p'))
+		if (a:bang ==# '!')
+			silent exe bufnr(fnamemodify(l:name, ':p')) . 'bwipe!'
+		else
+			echohl ErrorMsg
+			echomsg 'A buffer with that name already exists (use ! to override).'
+			echohl None
+			return 0
+		endif
+	endif
+
+	let l:status = 1
+
+	let v:errmsg = ''
+	silent! exe 'saveas' . a:bang . ' ' . l:name
+
+	if v:errmsg =~# '^$\|^E329'
+		let l:lastbufnr = bufnr('$')
+
+		if expand('%:p') !=# l:oldfile && filewritable(expand('%:p'))
+			if fnamemodify(bufname(l:lastbufnr), ':p') ==# l:oldfile
+				silent exe l:lastbufnr . 'bwipe!'
+			else
+				echohl ErrorMsg
+				echomsg 'Could not wipe out the old buffer for some reason.'
+				echohl None
+				let l:status = 0
+			endif
+
+			if delete(l:oldfile) != 0
+				echohl ErrorMsg
+				echomsg 'Could not delete the old file: ' . l:oldfile
+				echohl None
+				let l:status = 0
+			endif
+		else
+			echohl ErrorMsg
+			echomsg 'Rename failed for some reason.'
+			echohl None
+			let l:status = 0
+		endif
+	else
+		echoerr v:errmsg
+		let l:status = 0
+	endif
+
+	return l:status
+endfunction
+
+func! Eatchar(pat)
+    let c = nr2char(getchar(0))
+    return (c =~ a:pat) ? '' : c
+endfunc
+
+function! LessMode()
+  if g:lessmode == 0
+    let g:lessmode = 1
+    let onoff = 'on'
+    " Scroll half a page down
+    noremap <script> d <C-D>
+    " Scroll one line down
+    noremap <script> j <C-E>
+    " Scroll half a page up
+    noremap <script> u <C-U>
+    " Scroll one line up
+    noremap <script> k <C-Y>
+  else
+    let g:lessmode = 0
+    let onoff = 'off'
+    unmap d
+    unmap j
+    unmap u
+    unmap k
+  endif
+  echohl Label | echo "Less mode" onoff | echohl None
+endfunction
+
+let g:lessmode = 0
+nnoremap <F5> :call LessMode()<CR>
+inoremap <F5> <Esc>:call LessMode()<CR>
