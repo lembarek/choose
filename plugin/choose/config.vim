@@ -1,12 +1,15 @@
 let g:SiteDir= GetValue('site_dir')
+let g:ContainerName= GetValue('container_name')
 let g:Vendor='/vendor'
 let g:testMap=':nnoremap ff :!clear && '
+
+let g:docker="docker exec ".g:ContainerName." "
 
 let g:FileRelativePathToComposer = substitute(expand('%:p'), '^'.g:SiteDir.'/', '','')
 let g:FileRelativePathToCodeceptionConfig= substitute(expand('%:p'), '^'.g:SiteDir.'/tests/', '','')
 let g:CodeceptionConfig=g:SiteDir.'/codeception.yml'
 
-let g:PhpUnitPhar=g:SiteDir.g:Vendor.'/bin/phpunit'
+let g:PhpUnitPhar=g:docker.g:SiteDir.g:Vendor.'/bin/phpunit'
 let g:PhpUnitConfig=g:SiteDir.'/phpunit.xml'
 let g:PhpUnit=g:testMap.g:PhpUnitPhar.' -c '.g:PhpUnitConfig
 
@@ -36,8 +39,8 @@ let g:TestList = [
 \]
 
 let g:PhpUnitList = {
-            \'% => %': 'normal '.g:PhpUnit.' % <cr>'.'',
-            \'f% => %': 'normal '.g:PhpUnit.' % <cr>'.'',
+            \'% => %': 'normal '.g:PhpUnit.' '.expand('%:p').'<cr>'.'',
+            \'f% => %': 'normal '.g:PhpUnit.' '.expand('%:p').'<cr>'.'',
             \'a => all': 'normal '.g:PhpUnit.'   <cr>'.'',
             \'ft => this function': 'call RunOneFunctionWithPhpUnit()',
             \'t => this function': 'call RunOneFunctionWithPhpUnitFull()'
