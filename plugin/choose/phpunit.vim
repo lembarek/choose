@@ -1,7 +1,7 @@
 function! RunOneFunctionWithPhpUnit()
    let l:winview = winsaveview()
    execute 'normal ?functionwvwh"fy'
-   let command =  g:PhpUnit.'  '.expand('%:p').' --filter "/::'.@f.'$" \| grep "Caused by" -A 1<cr>' 
+   let command =  g:PhpUnit.'  '.expand('%:p').' --filter "'.@f.'$" \| grep "Caused by" -A 1<cr>' 
    execute 'normal '.command.''
    call winrestview(l:winview)
 endfunction
