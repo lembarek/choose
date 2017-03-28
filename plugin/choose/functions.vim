@@ -241,3 +241,36 @@ endfunction
 let g:lessmode = 0
 nnoremap <F5> :call LessMode()<CR>
 inoremap <F5> <Esc>:call LessMode()<CR>
+
+function! SetTags()
+
+    let files = {
+                \'m': 'min',
+                \'v' : 'vendor',
+                \'n': 'node'
+    \}
+
+
+    let keys = sort(keys(files))
+
+    for key in keys
+            echo key.' => '.files[key]
+    endfor
+
+    let choix = input('choose: ')
+
+    if choix != ''
+        for key in keys
+            if key =~ '^'.choix
+                execute  ':!ln -fs ./.tags/'.files[key].'   ./tags'
+            endif
+        endfor
+    endif
+
+    echo '  '
+
+endfunc
+nnoremap tc :call SetTags()<CR>
+nnoremap tt :tag<space>
+nnoremap tn :tn<cr>
+nnoremap tp :tp<cr>
