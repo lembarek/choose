@@ -3,7 +3,12 @@ let g:ContainerName= GetValue('container_name')
 let g:Vendor='/vendor'
 let g:testMap=':nnoremap ff :!clear && '
 
-let g:docker="docker exec ".g:ContainerName." "
+
+if g:ContainerName != ""
+ let g:docker="docker exec ".g:ContainerName." "
+else
+ let g:docker=""
+endif
 
 let g:FileRelativePathToComposer = substitute(expand('%:p'), '^'.g:SiteDir.'/', '','')
 let g:FileRelativePathToCodeceptionConfig= substitute(expand('%:p'), '^'.g:SiteDir.'/tests/', '','')
